@@ -37,6 +37,7 @@ namespace Practica_1
             cargarProductos();
             cargarProveedores();
             txtNombre.Select();
+            txtID.Enabled = false; // Deshabilitar el campo ID
         }
 
         public void cargarProductos()
@@ -49,8 +50,16 @@ namespace Practica_1
                 dataProductos.Columns["Id"].Visible = false;
                 dataProductos.Columns["Correlativo"].HeaderText = "No.";
                 dataProductos.Columns["Precio"].DefaultCellStyle.Format = "C2";
+                txtID.Clear();
+                txtNombre.Clear();
+                txtPrecio.Clear();
+                txtCampo.Clear();
+                txtCantidad.Clear();
+                if (cmbProveedores.Items.Count > 0)
+                {
+                    cmbProveedores.SelectedIndex = 0;
+                }
             }
-
         }
 
 

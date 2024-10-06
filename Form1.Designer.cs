@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             groupBox1 = new GroupBox();
-            LimpiarCampos = new Button();
             cmbProveedores = new ComboBox();
             label5 = new Label();
             txtCantidad = new TextBox();
@@ -58,7 +57,6 @@
             // 
             // groupBox1
             // 
-            groupBox1.Controls.Add(LimpiarCampos);
             groupBox1.Controls.Add(cmbProveedores);
             groupBox1.Controls.Add(label5);
             groupBox1.Controls.Add(txtCantidad);
@@ -71,21 +69,11 @@
             groupBox1.Controls.Add(label1);
             groupBox1.Location = new Point(12, 12);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(523, 342);
+            groupBox1.Size = new Size(523, 439);
             groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
             groupBox1.Text = "Datos de Productos";
             groupBox1.Enter += groupBox1_Enter;
-            // 
-            // LimpiarCampos
-            // 
-            LimpiarCampos.Location = new Point(363, 50);
-            LimpiarCampos.Name = "LimpiarCampos";
-            LimpiarCampos.Size = new Size(112, 34);
-            LimpiarCampos.TabIndex = 11;
-            LimpiarCampos.Text = "Limpiar";
-            LimpiarCampos.UseVisualStyleBackColor = true;
-            LimpiarCampos.Click += LimpiarCampos_Click;
             // 
             // cmbProveedores
             // 
@@ -181,18 +169,18 @@
             // dataProductos
             // 
             dataProductos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataProductos.Location = new Point(6, 30);
+            dataProductos.Location = new Point(32, 50);
             dataProductos.Name = "dataProductos";
             dataProductos.RowHeadersWidth = 62;
             dataProductos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataProductos.Size = new Size(488, 306);
+            dataProductos.Size = new Size(449, 269);
             dataProductos.TabIndex = 0;
             dataProductos.CellContentClick += dataGridView1_CellContentClick;
             dataProductos.SelectionChanged += dataProductos_SelectionChanged;
             // 
             // btnAgregar
             // 
-            btnAgregar.Location = new Point(12, 394);
+            btnAgregar.Location = new Point(41, 356);
             btnAgregar.Name = "btnAgregar";
             btnAgregar.Size = new Size(139, 73);
             btnAgregar.TabIndex = 10;
@@ -202,7 +190,7 @@
             // 
             // btnModificar
             // 
-            btnModificar.Location = new Point(161, 394);
+            btnModificar.Location = new Point(190, 356);
             btnModificar.Name = "btnModificar";
             btnModificar.Size = new Size(139, 73);
             btnModificar.TabIndex = 11;
@@ -212,7 +200,7 @@
             // 
             // btnEliminar
             // 
-            btnEliminar.Location = new Point(306, 394);
+            btnEliminar.Location = new Point(335, 356);
             btnEliminar.Name = "btnEliminar";
             btnEliminar.Size = new Size(139, 73);
             btnEliminar.TabIndex = 12;
@@ -223,7 +211,7 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(498, 415);
+            label6.Location = new Point(552, 373);
             label6.Name = "label6";
             label6.Size = new Size(78, 25);
             label6.TabIndex = 13;
@@ -232,7 +220,7 @@
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(686, 415);
+            label7.Location = new Point(740, 373);
             label7.Name = "label7";
             label7.Size = new Size(47, 25);
             label7.TabIndex = 14;
@@ -240,7 +228,7 @@
             // 
             // txtCampo
             // 
-            txtCampo.Location = new Point(582, 412);
+            txtCampo.Location = new Point(636, 370);
             txtCampo.Name = "txtCampo";
             txtCampo.Size = new Size(98, 31);
             txtCampo.TabIndex = 15;
@@ -250,14 +238,14 @@
             // 
             comboBox1.FormattingEnabled = true;
             comboBox1.Items.AddRange(new object[] { "Nombre", "Proveedor" });
-            comboBox1.Location = new Point(739, 412);
+            comboBox1.Location = new Point(793, 370);
             comboBox1.Name = "comboBox1";
             comboBox1.Size = new Size(106, 33);
             comboBox1.TabIndex = 16;
             // 
             // button4
             // 
-            button4.Location = new Point(899, 403);
+            button4.Location = new Point(916, 367);
             button4.Name = "button4";
             button4.Size = new Size(132, 48);
             button4.TabIndex = 17;
@@ -267,7 +255,7 @@
             // 
             // button1
             // 
-            button1.Location = new Point(899, 478);
+            button1.Location = new Point(916, 442);
             button1.Name = "button1";
             button1.Size = new Size(132, 48);
             button1.TabIndex = 18;
@@ -326,6 +314,5 @@
         private Button button4;
         private ComboBox cmbProveedores;
         private Button button1;
-        private Button LimpiarCampos;
     }
 }
