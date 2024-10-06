@@ -132,23 +132,63 @@ namespace Practica_1
 
         private void button2_Click(object sender, EventArgs e)
         {
-            var producto = new Producto
+            Validaciones validaciones = new Validaciones();
+            if (validaciones.validarnombre(txtNombre.Text) == false)
             {
-                Id = int.Parse(txtID.Text),
-                Nombre = txtNombre.Text,
-                Precio = decimal.Parse(txtPrecio.Text),
-                Idproveedor = Convert.ToInt32(cmbProveedores.SelectedValue),
-                Cantidad = int.Parse(txtCantidad.Text)
-            };
-            _operaciones.Actualizarproducto(producto);
-            cargarProductos();
+                MessageBox.Show("El campo nombre no puede estar vacío");
+                return;
+            }
+            if (validaciones.validarcosto(txtPrecio.Text) == false)
+            {
+                MessageBox.Show("El campo precio no puede estar vacío");
+                return;
+            }
+            if (validaciones.validarproveedor(cmbProveedores.Text) == false)
+            {
+                MessageBox.Show("El campo proveedor no puede estar vacío");
+                return;
+            }
+            if (validaciones.validarcantidad(txtCantidad.Text) == false)
+            {
+                MessageBox.Show("El campo cantidad no puede estar vacío");
+                return;
+            }
+
+            DialogResult dialogResult = MessageBox.Show("¿Desea actualizar el producto?", "Actualizar producto", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                MessageBox.Show("Producto actualizado");
+                var producto = new Producto
+                {
+                    Id = int.Parse(txtID.Text),
+                    Nombre = txtNombre.Text,
+                    Precio = decimal.Parse(txtPrecio.Text),
+                    Idproveedor = Convert.ToInt32(cmbProveedores.SelectedValue),
+                    Cantidad = int.Parse(txtCantidad.Text)
+                };
+                _operaciones.Actualizarproducto(producto);
+                cargarProductos();
+            }
+            else
+            {
+                MessageBox.Show("Producto no actualizado");
+            }
+
         }
 
         private void btnEliminar_Click(object sender, EventArgs e)
         {
-            int id = int.Parse(txtID.Text);
-            _operaciones.EliminarProducto(id);
-            cargarProductos();
+            DialogResult dialogResult = MessageBox.Show("¿Desea eliminar el producto?", "Eliminar producto", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                MessageBox.Show("Producto eliminado");
+                _operaciones.EliminarProducto(int.Parse(txtID.Text));
+                cargarProductos();
+            }
+            else
+            {
+                MessageBox.Show("Producto no eliminado");
+            }
 
         }
 
