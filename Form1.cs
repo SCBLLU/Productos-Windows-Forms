@@ -72,7 +72,6 @@ namespace Practica_1
                 cmbProveedores.DisplayMember = "NombreProveedor";
                 cmbProveedores.ValueMember = "Idproveedor";
             }
-
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -173,7 +172,6 @@ namespace Practica_1
             {
                 MessageBox.Show("Producto no actualizado");
             }
-
         }
 
         private void btnEliminar_Click(object sender, EventArgs e)
@@ -181,21 +179,27 @@ namespace Practica_1
             DialogResult dialogResult = MessageBox.Show("¿Desea eliminar el producto?", "Eliminar producto", MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
             {
-                MessageBox.Show("Producto eliminado");
-                _operaciones.EliminarProducto(int.Parse(txtID.Text));
-                cargarProductos();
+                if (int.TryParse(txtID.Text, out int productId))
+                {
+                    MessageBox.Show("Producto eliminado");
+                    _operaciones.EliminarProducto(productId);
+                    cargarProductos();
+                }
+                else
+                {
+                    MessageBox.Show("Por favor, ingrese un ID de producto válido.");
+                }
             }
             else
             {
                 MessageBox.Show("Producto no eliminado");
             }
-
         }
 
         private void textBox6_TextChanged(object sender, EventArgs e)
         {
             string BuscadorTexto = txtBuscar.Text.ToLower();
-            var FiltrarProductos = productos.Where(p => p.Nombre.ToLower().Contains(BuscadorTexto)).ToList();
+            var FiltrarProductos = productos.Where(p => p.Nombre.ToLower().Contains(BuscadorTexto)).ToList(); //filtra por nombre
             dataProductos.DataSource = FiltrarProductos;
             dataProductos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             dataProductos.Columns["Id"].Visible = false;
@@ -203,26 +207,11 @@ namespace Practica_1
             dataProductos.Columns["Precio"].DefaultCellStyle.Format = "C2";
         }
 
-        private void button4_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void button1_Click_1(object sender, EventArgs e)
         {
 
             cargarProductos();
 
-        }
-
-        private void LimpiarCampos_Click(object sender, EventArgs e)
-        {
-            txtID.Clear();
-            txtNombre.Clear();
-            txtPrecio.Clear();
-            txtBuscar.Clear();
-            txtCantidad.Clear();
-            cmbProveedores.SelectedIndex = 0;
         }
 
         private void dataProductos_SelectionChanged(object sender, EventArgs e)
