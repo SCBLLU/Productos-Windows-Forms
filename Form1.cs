@@ -53,7 +53,7 @@ namespace Practica_1
                 txtID.Clear();
                 txtNombre.Clear();
                 txtPrecio.Clear();
-                txtCampo.Clear();
+                txtBuscar.Clear();
                 txtCantidad.Clear();
                 if (cmbProveedores.Items.Count > 0)
                 {
@@ -77,15 +77,57 @@ namespace Practica_1
 
         private void button1_Click(object sender, EventArgs e)
         {
-            var producto = new Producto
+            Validaciones validaciones = new Validaciones();
+            if (validaciones.validarnombre(txtNombre.Text) == false)
             {
-                Nombre = txtNombre.Text,
-                Precio = decimal.Parse(txtPrecio.Text),
-                Idproveedor = Convert.ToInt32(cmbProveedores.SelectedValue),
-                Cantidad = int.Parse(txtCantidad.Text)
-            };
-            _operaciones.AgregarProducto(producto);
-            cargarProductos();
+                MessageBox.Show("El campo nombre no puede estar vacío");
+                return;
+            }
+            if (validaciones.validarcosto(txtPrecio.Text) == false)
+            {
+                MessageBox.Show("El campo precio no puede estar vacío");
+                return;
+            }
+            if (validaciones.validarproveedor(cmbProveedores.Text) == false)
+            {
+                MessageBox.Show("El campo proveedor no puede estar vacío");
+                return;
+            }
+            if (validaciones.validarcantidad(txtCantidad.Text) == false)
+            {
+                MessageBox.Show("El campo cantidad no puede estar vacío");
+                return;
+            }
+
+            if (!decimal.TryParse(txtPrecio.Text, out decimal precio))
+            {
+                MessageBox.Show("El campo precio debe ser un número válido");
+                return;
+            }
+            if (!int.TryParse(txtCantidad.Text, out int cantidad))
+            {
+                MessageBox.Show("El campo cantidad debe ser un número válido");
+                return;
+            }
+
+            DialogResult dialogResult = MessageBox.Show("¿Desea agregar el producto?", "Agregar producto", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                MessageBox.Show("Producto agregado");
+                var producto = new Producto
+                {
+                    Nombre = txtNombre.Text,
+                    Precio = decimal.Parse(txtPrecio.Text),
+                    Idproveedor = Convert.ToInt32(cmbProveedores.SelectedValue),
+                    Cantidad = int.Parse(txtCantidad.Text)
+                };
+                _operaciones.AgregarProducto(producto);
+                cargarProductos();
+            }
+            else
+            {
+                MessageBox.Show("Producto no agregado");
+            }
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -112,18 +154,18 @@ namespace Practica_1
 
         private void textBox6_TextChanged(object sender, EventArgs e)
         {
-
-        }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-            List<VistaProdProvee> productos_encontrados = new List<VistaProdProvee>();
-            productos_encontrados = _operaciones.filtrarProductos(txtCampo.Text, comboBox1.Text, productos);
-            dataProductos.DataSource = productos_encontrados;
+            string BuscadorTexto = txtBuscar.Text.ToLower();
+            var FiltrarProductos = productos.Where(p => p.Nombre.ToLower().Contains(BuscadorTexto)).ToList();
+            dataProductos.DataSource = FiltrarProductos;
             dataProductos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             dataProductos.Columns["Id"].Visible = false;
             dataProductos.Columns["Correlativo"].HeaderText = "No.";
             dataProductos.Columns["Precio"].DefaultCellStyle.Format = "C2";
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+
         }
 
         private void button1_Click_1(object sender, EventArgs e)
@@ -138,7 +180,7 @@ namespace Practica_1
             txtID.Clear();
             txtNombre.Clear();
             txtPrecio.Clear();
-            txtCampo.Clear();
+            txtBuscar.Clear();
             txtCantidad.Clear();
             cmbProveedores.SelectedIndex = 0;
         }
